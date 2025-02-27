@@ -57,7 +57,8 @@ class GetBlogs(APIView):
             paginated_blogs = paginator.paginate_queryset(blogs, request)
             
             serializer = BlogSerializer(paginated_blogs, many=True)
-            
+
+            print(paginator.get_paginated_response(serializer.data))
             return paginator.get_paginated_response(serializer.data)
 
         
@@ -71,14 +72,17 @@ class GetBlogs(APIView):
 
 class GetSelfBlogs(APIView):
     parser_classes = [MultiPartParser]
-            
+    pagination_class = BlogPagination     
+
     def get(self, request): 
         user = request.user
         if user:
             blogs = Blog.objects.filter(created_by = user)
-            serializer = BlogSerializer(blogs, many=True)
-            
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            paginator = self.pagination_class()
+            paginated_blogs = paginator.paginate_queryset(blogs, request)
+            serializer = BlogSerializer(paginated_blogs, many=True)
+            return paginator.get_paginated_response(serializer.data)
+           
             
         return Response({
             "error":True,
