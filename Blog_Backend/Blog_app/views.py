@@ -58,7 +58,7 @@ class GetBlogs(APIView):
             
             serializer = BlogSerializer(paginated_blogs, many=True)
 
-            print(paginator.get_paginated_response(serializer.data))
+
             return paginator.get_paginated_response(serializer.data)
 
         

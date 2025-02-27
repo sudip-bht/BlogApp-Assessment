@@ -7,6 +7,8 @@ from rest_framework_simplejwt.exceptions import TokenError
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from .email_sender import Email_sender
+from rest_framework.views import APIView
+
 
 class RegisterView(generics.GenericAPIView):
     
@@ -66,4 +68,17 @@ class VerifyEmail(generics.GenericAPIView):
                 
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-        
+
+
+class RefreshTokenView(APIView):
+    def post(self, request):
+        refresh_token = request.data.get("refresh")
+        if not refresh_token:
+            return Response({"error": "Refresh token is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            token_obj = RefreshToken(refresh_token)
+            access_token = token_obj.access_token
+            return Response({"access": str(access_token)}, status=status.HTTP_200_OK)
+        except TokenError:
+            return Response({"error": "Invalid or Expired Token"}, status=status.HTTP_400_BAD_REQUEST)

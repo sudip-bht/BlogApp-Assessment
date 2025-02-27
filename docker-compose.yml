@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./Blog_Backend
+    container_name: django_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Blog_Backend:/app # Mount backend code
+      - ./Blog_Backend/db.sqlite3:/app/db.sqlite3 # Correct SQLite persistence
+
+  frontend:
+    build: ./blog-client
+    container_name: next_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./blog-client:/app
+    depends_on:
+      - backend
+    command: sh -c "sleep 10 && npm run build && npm run start"
