@@ -20,10 +20,11 @@ class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length = 255, min_length = 3)
     password = serializers.CharField(max_length = 68, min_length = 6, write_only=True)
     username = serializers.CharField(max_length = 255, min_length = 3, read_only = True)
-
+    tokens = serializers.CharField(max_length = 68, min_length = 6, read_only=True)
+    
     class Meta:
         model = User
-        fields = ['email', 'password', 'username']
+        fields = ['email', 'password', 'username', 'tokens']
         
     def validate(self, attrs):
         email = attrs.get('email', '')
@@ -34,9 +35,10 @@ class LoginSerializer(serializers.ModelSerializer):
         user = auth.authenticate(email=email, password=password)
         
         if not user:
-            raise serializers.AuthenticationFailed("Invalid credentials, Try again")
+            raise AuthenticationFailed("Invalid credentials")
         
         return{
             'email': user.email,
             'username': user.username,
+            'tokens': user.tokens
         }
