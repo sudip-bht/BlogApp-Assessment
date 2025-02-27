@@ -30,8 +30,6 @@ docker --version
 docker-compose --version
 ```
 
-Clone the Repository
-
 Clone the repository to your local machine:
 
 ```
@@ -52,7 +50,7 @@ Replace your_gmail_id and your_gmail_app_password with your actual Gmail credent
 
 ## Docker Setup
 
-Build and Start Containers
+### Build and Start Containers
 
 Run the following command to build and start the containers:
 
@@ -62,7 +60,7 @@ docker-compose up --build -d
 
 This will build and start both the frontend and backend services.
 
-Verify Running Containers
+### Verify Running Containers
 
 Check if the containers are running:
 
@@ -76,13 +74,13 @@ django_backend (Backend running on port `8000`)
 
 next_frontend (Frontend running on port `3000`)
 
-Access the Application
+### Access the Application
 
 Backend API: http://localhost:8000/
 
 Frontend App: http://localhost:3000/
 
-Running Commands Inside Containers
+### Running Commands Inside Containers
 
 If you need to run Django management commands inside the backend container, use:
 
@@ -97,7 +95,7 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 
-Stopping and Restarting Containers
+### Stopping and Restarting Containers
 
 To stop the running containers:
 
@@ -119,7 +117,7 @@ If you make changes to the code, rebuild the containers with:
 docker-compose up --build -d
 ```
 
-Troubleshooting
+### Troubleshooting
 
 If you encounter any errors, check the logs:
 
