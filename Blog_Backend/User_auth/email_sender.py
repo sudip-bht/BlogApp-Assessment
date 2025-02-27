@@ -14,8 +14,6 @@ class Email_sender:
         smtp_server = "smtp.gmail.com"  # Google SMTP Server
 
         email_from, app_password = os.getenv('EMAIL_HOST_USER'), os.getenv('GMAIL_APP_PASS')
-        print(email_from)
-        print(app_password)
         simple_email_context = ssl.create_default_context()
         
         subject = data['email_subject']
@@ -26,11 +24,9 @@ class Email_sender:
 
         try:
             # Connect to the server
-            print("Connecting to server...")
             TIE_server = smtplib.SMTP(smtp_server, smtp_port)
             TIE_server.starttls(context=simple_email_context)
             TIE_server.login(email_from, app_password)
-            print("Connected to server :-)")
             
             # Send the actual email
             print(f"Sending email to - {email_to}")
