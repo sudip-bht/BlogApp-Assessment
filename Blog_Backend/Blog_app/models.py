@@ -8,7 +8,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=100, null=False)
     content = models.CharField(max_length=1000000)
     created_at = models.DateTimeField(default=datetime.now, blank= True)
-    created_by = models.ForeignKey(User,on_delete = models.CASCADE, blank = False, related_name='created_by')
+    created_by = models.ForeignKey(User,on_delete = models.CASCADE,blank=False, related_name='created_by')
     liked_by = models.ManyToManyField(User, blank=True, related_name='liked_by')
     
     def created_by_user(self):

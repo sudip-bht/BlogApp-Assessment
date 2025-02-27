@@ -7,15 +7,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializer import *
 from rest_framework.parsers import MultiPartParser
-
+from .pagination import BlogPagination
 
 
 class CreateBlog(generics.GenericAPIView):
     def post(self, request):
-        user = request.user
+        user = User.objects.get(email = request.user)
         if user:
             if user.is_verified:
                 serializer = BlogSerializer(data=request.data)
+                print(user)
                 if serializer.is_valid(raise_exception=ValueError):
                     serializer.save(created_by = user)
                     return Response(
@@ -45,15 +46,20 @@ class CreateBlog(generics.GenericAPIView):
 
 class GetBlogs(APIView):
     parser_classes = [MultiPartParser]
-    
+    pagination_class = BlogPagination
+     
     def get(self, request):
         
         user = request.user
         if user:
-            blogs = Blog.objects.all()
-            serializer = BlogSerializer(blogs, many=True)
+            blogs = Blog.objects.all().order_by('-created_at')
+            paginator = self.pagination_class()
+            paginated_blogs = paginator.paginate_queryset(blogs, request)
             
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            serializer = BlogSerializer(paginated_blogs, many=True)
+            
+            return paginator.get_paginated_response(serializer.data)
+
         
         return Response({
             "error":True,
