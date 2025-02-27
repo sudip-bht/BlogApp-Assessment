@@ -36,9 +36,6 @@ class LoginSerializer(serializers.ModelSerializer):
         if not user:
             raise serializers.AuthenticationFailed("Invalid credentials, Try again")
         
-        if not user.is_verified:
-            raise AuthenticationFailed('Email not verified')
-        
         return{
             'email': user.email,
             'username': user.username,
