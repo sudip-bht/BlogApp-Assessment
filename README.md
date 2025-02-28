@@ -4,10 +4,6 @@ A Simple Blog Application built with Django Rest Framework and Next.js, with doc
 
 ## Installation and Setup
 
-### Prerequisites
-
-Docker and Docker Compose installed on your system.
-
 ### Install Docker
 
 #### Windows & macOS
@@ -39,7 +35,7 @@ cd BlogApp-Assessment
 
 ## Set Environment Variables
 
-Create a `.env` file in the root directory of the project and add the following variables:
+Create a `.env` file in the backend directory of the project and add the following variables:
 
 ```
 EMAIL_HOST_USER=your_gmail_id
@@ -127,3 +123,16 @@ docker-compose logs frontend
 ```
 
 This will help diagnose and fix issues quickly.
+
+## Database schema
+
+![Image](schema.png "Image")
+Here we can see database schema for blog application
+
+#### Many to One
+
+This relation has been implemented so that a single user can be associated with multiple blogs, while each individual blog is linked to just one user
+
+#### Many to Many
+
+Due to time constraints, I wasn't able to implement the many-to-many relationship. However, many-to-many relationships can still be incorporated in the blog application. Features such as blog likes,user follows, comment interactions (with upvotes and downvotes), tags (keywords associated with each blog post), and blog collaborations etc. The schema shown above for Blog Likes is one such example because a single blog post can be liked by many users, and each user can like multiple blog posts.
