@@ -135,4 +135,4 @@ This relation has been implemented so that a single user can be associated with 
 
 #### Many to Many
 
-Due to time constraints, I wasn't able to implement the many-to-many relationship. However, many-to-many relationships can still be incorporated in the blog application. Features such as blog likes,user follows, comment interactions (with upvotes and downvotes), tags (keywords associated with each blog post), and blog collaborations etc. The schema shown above for Blog Likes is one such example because a single blog post can be liked by many users, and each user can like multiple blog posts.
+Due to time constraints, I wasn't able to implement the many-to-many relationship. However, many-to-many relationships can still be incorporated in the blog application. Features such as blog likes,user follows, comment interactions (with upvotes and downvotes), tags (keywords associated with each blog post), and blog collaborations etc can be implemented. The schema shown above for Blog Likes is one such example because a single blog post can be liked by many users, and each user can like multiple blog posts.
